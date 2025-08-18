@@ -2,7 +2,7 @@ library(readr)
 library(dplyr)
 library(tidyr)
 
-allowed_aas = c("A", "B", "C","D","E","F","G","H","I","K","L","M","N","P","Q","R","S","T","V","W","Y", "Z")
+allowed_aas = c("A","C","D","E","F","G","H","I","K","L","M","N","P","Q","R","S","T","V","W","Y")
 
 process <- function(path, drug, p_max = 1e3, min_occurrence = 11) {
   
