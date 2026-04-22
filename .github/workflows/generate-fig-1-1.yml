@@ -2,11 +2,13 @@ name: Generate Figure 1.1
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'Figures/Chapter-1/figure-1-1-winners.R'
-      - 'Figures/theme.R'
-      - '.github/workflows/generate-fig-1-1.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generate-fig-1-1
+  cancel-in-progress: false
 
 jobs:
   generate-figure-1-1:
@@ -15,6 +17,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
@@ -27,8 +31,25 @@ jobs:
         run: |
           Rscript Figures/Chapter-1/figure-1-1-winners.R
 
-      - name: Upload figure artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: figure-1-1-winners
-          path: Figures/Chapter-1/winners.pdf
+      - name: Copy figure to shared generated directory
+        run: |
+          mkdir -p Figures/Generated
+          cp Figures/Chapter-1/winners.pdf Figures/Generated/figure-1-1-winners.pdf
+
+      - name: Commit and push generated figure
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add Figures/Generated/figure-1-1-winners.pdf
+
+          if git diff --staged --quiet; then
+            echo "No figure changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: update generated figure 1.1 [skip ci]"
+
+          # Reduce push conflicts by rebasing on latest remote branch first
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
