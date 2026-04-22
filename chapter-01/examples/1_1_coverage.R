@@ -1,13 +1,11 @@
 # Load necessary libraries
 library(ggplot2)
-library(dplyr)
 
-# Define theme
+# Define theme_book
 theme_book <- function() {
-  theme_minimal() +
-  theme(text = element_text(size = 12),
-        plot.title = element_text(hjust = 0.5))
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5))
 }
 
-# Coverage example code
-
+# Coverage Analysis code goes here
+# ... (complete coverage analysis code here)
