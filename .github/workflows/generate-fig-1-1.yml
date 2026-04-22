@@ -24,21 +24,21 @@ jobs:
 
       - name: Generate Figure 1.1
         run: |
-          Rscript Figures/Chapter-1/fig-1-1.R
+          Rscript Figures/Chapter-1/figure-1-1.R
 
       - name: Copy figure to shared generated directory
         run: |
           test -d Figures/Generated
-          cp Figures/Chapter-1/fig-1-1.pdf Figures/Generated/fig-1-1.pdf
+          cp Figures/Chapter-1/figure-1-1.pdf Figures/Generated/figure-1-1.pdf
 
       - name: Commit generated figure
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add Figures/Generated/fig-1-1.pdf
+          git add Figures/Generated/figure-1-1.pdf
           if git diff --staged --quiet; then
             echo "No figure changes to commit."
           else
-            git commit -m "chore: update generated fig-1-1"
+            git commit -m "chore: update generated figure-1-1"
             git push
           fi
