@@ -28,4 +28,4 @@ p <- ggplot(df, aes(x = n, y = coverage)) +
   labs(x = "n", y = "Coverage") +
   theme_book
 
-ggsave(file.path("Figures", "PDFs", "winners.pdf"), plot = p, width = 5, height = 5)
+ggsave(plot = p, width = 5, height = 5)
