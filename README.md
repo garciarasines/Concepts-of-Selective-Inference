@@ -1,1 +1,3 @@
 # Concepts-of-Selective-Inference
+
+To generate the figures, go to Actions -> ...
