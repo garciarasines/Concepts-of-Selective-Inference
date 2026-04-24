@@ -1,31 +1,44 @@
+library(MASS)
 source(file.path("Figures", "theme.R"))
 
-coverage <- function(n, B = 5e4) {
-  covered <- logical(B)
-
+stepwise_p_values <- function(n, p, B = 1e4) {
+  p_values <- vector("list", B)
+  
   for (b in seq_len(B)) {
+    X <- data.frame(matrix(rnorm(n * p), ncol = p))
     y <- rnorm(n)
-    covered[b] <- max(y) < 1.96 && max(y) > -1.96
+    
+    min_model <- lm(y ~ 1, data = X)
+    max_model <- formula(lm(y ~ ., data = X))
+    
+    fit_step <- stepAIC(
+      min_model,
+      direction = "forward",
+      scope = max_model,
+      trace = FALSE
+    )
+    
+    p_values[[b]] <- summary(fit_step)$coefficients[, 4]
   }
-
-  mean(covered)
+  
+  unlist(p_values)
 }
 
-ns <- 1 + 5 * (0:20)
+n <- 80
+p <- 20
+
 set.seed(123)
-results <- sapply(ns, coverage)
+results <- stepwise_p_values(n, p)
 
-df <- data.frame(
-  n = ns,
-  coverage = results
-)
+mean(results < 0.05)
 
-p <- ggplot(df, aes(x = n, y = coverage)) +
-  geom_point(shape = 16, size = 2, color = "black") +
-  geom_line(linewidth = 0.4, color = "black") +
-  geom_hline(yintercept = 0.95, linetype = "dashed", color = "black") +
-  scale_y_continuous(limits = c(0, 1)) +
-  labs(x = "n", y = "Coverage") +
+df <- data.frame(p_value = results)
+
+p <- ggplot(df, aes(x = p_value)) +
+  stat_ecdf(geom = "step", linewidth = 0.4, color = "black") +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
+  coord_cartesian(xlim = c(0, 1), ylim = c(0, 1)) +
+  labs(x = "p-value", y = "Empirical CDF") +
   theme_book
 
-ggsave("winners.pdf", plot = p, width = 5, height = 5)
+ggsave(file.path("Figures", "Chapter-1", "stepwise.pdf"), plot = p, width = 5, height = 5)
