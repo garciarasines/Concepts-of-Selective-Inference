@@ -3,24 +3,30 @@ source(file.path("Figures", "theme.R"))
 
 stepwise_p_values <- function(n, p, B = 1e4) {
   p_values <- vector("list", B)
-  
+
+  pb <- txtProgressBar(min = 0, max = B, style = 3)
+
   for (b in seq_len(B)) {
     X <- data.frame(matrix(rnorm(n * p), ncol = p))
     y <- rnorm(n)
-    
+
     min_model <- lm(y ~ 1, data = X)
     max_model <- formula(lm(y ~ ., data = X))
-    
+
     fit_step <- stepAIC(
       min_model,
       direction = "forward",
       scope = max_model,
       trace = FALSE
     )
-    
+
     p_values[[b]] <- summary(fit_step)$coefficients[, 4]
+
+    setTxtProgressBar(pb, b)
   }
-  
+
+  close(pb)
+
   unlist(p_values)
 }
 
