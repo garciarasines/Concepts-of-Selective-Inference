@@ -1,37 +1,38 @@
 library(MASS)
 source(file.path("Figures", "theme.R"))
 
-stepwise_p_values <- function(B, n, p) {
+stepwise_p_values <- function(n, p, B = 1e4) {
   p_values <- vector("list", B)
-
+  
   for (b in seq_len(B)) {
     X <- data.frame(matrix(rnorm(n * p), ncol = p))
     y <- rnorm(n)
-
+    
     min_model <- lm(y ~ 1, data = X)
     max_model <- formula(lm(y ~ ., data = X))
-
+    
     fit_step <- stepAIC(
       min_model,
       direction = "forward",
       scope = max_model,
       trace = FALSE
     )
-
+    
     coef_table <- summary(fit_step)$coefficients
     selected_rows <- rownames(coef_table) != "(Intercept)"
     p_values[[b]] <- coef_table[selected_rows, 4]
   }
-
+  
   unlist(p_values)
 }
 
-B <- 1e4
 n <- 80
 p <- 20
 
 set.seed(123)
-df <- data.frame(p_value = stepwise_p_values(B = B, n = n, p = p))
+results <- stepwise_p_values(n, p)
+
+df <- data.frame(p_value = results)
 
 p <- ggplot(df, aes(x = p_value)) +
   stat_ecdf(geom = "step", linewidth = 0.4, color = "black") +
