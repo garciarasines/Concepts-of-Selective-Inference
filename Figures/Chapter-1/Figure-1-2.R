@@ -2,6 +2,7 @@ library(MASS)
 source(file.path("Figures", "theme.R"))
 
 stepwise_p_values <- function(n, p, B = 1e4) {
+  
   p_values <- vector("list", B)
   
   pb <- txtProgressBar(min = 0, max = B, style = 3)
