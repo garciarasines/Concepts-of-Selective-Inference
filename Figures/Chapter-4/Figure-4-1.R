@@ -34,7 +34,7 @@ df <- data.frame(
   cov2 = res[3, ]
 )
 
-p <- ggplot(df, aes(x = mu2)) +
+p_plot <- ggplot(df, aes(x = mu2)) +
   geom_line(aes(y = cov1), linewidth = 0.4) +
   geom_point(aes(y = cov1), shape = 16, size = 1.8) +
   geom_line(aes(y = cov2), linewidth = 0.4, linetype = "dashed") +
@@ -42,7 +42,7 @@ p <- ggplot(df, aes(x = mu2)) +
   geom_hline(yintercept = res[1, 1], linewidth = 0.4) +
   geom_hline(yintercept = 0.95, linewidth = 0.4, linetype = "dashed") +
   scale_y_continuous(limits = c(min(res), 1)) +
-  labs(x = expression(mu[2]), y = "Coverage", title = "Figure 4.1: Selected mean") +
+  labs(x = expression(mu[2]), y = "Coverage") +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-4", "fig-4-1.pdf"), plot = p, width = 7, height = 5)
+ggsave(file.path("Figures", "Chapter-4", "fig-4-1.pdf"), plot = p_plot, width = 7, height = 5)
