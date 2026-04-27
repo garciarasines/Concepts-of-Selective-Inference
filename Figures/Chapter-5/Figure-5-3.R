@@ -37,5 +37,5 @@ p_plot_b <- ggplot(df_rand, aes(x = x)) +
   labs(x = "x", y = "y", title = "Randomisation") +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-5", "fig-5-3-a.pdf"), plot = p_plot_a, width = 5, height = 5)
-ggsave(file.path("Figures", "Chapter-5", "fig-5-3-b.pdf"), plot = p_plot_b, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-5-3-a.pdf"), plot = p_plot_a, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-5-3-b.pdf"), plot = p_plot_b, width = 5, height = 5)
