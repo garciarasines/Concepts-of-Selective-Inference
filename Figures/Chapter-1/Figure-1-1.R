@@ -1,17 +1,14 @@
 source(file.path("Figures", "theme.R"))
 
-coverage <- function(n, B = 5e4, pb = NULL, offset = 0) {
+coverage <- function(n, B = 5e4, offset = 0) {
   covered <- logical(B)
 
   for (b in seq_len(B)) {
     y <- rnorm(n)
     covered[b] <- max(y) < 1.96 && max(y) > -1.96
-
-    if (!is.null(pb)) {
-      setTxtProgressBar(pb, offset + b)
-    }
+    setTxtProgressBar(pb, offset + b)
   }
-
+  
   mean(covered)
 }
 
@@ -24,7 +21,7 @@ results <- numeric(length(ns))
 pb <- txtProgressBar(min = 0, max = length(ns)*B, style = 3)
 
 for (i in seq_along(ns)) {
-  results[i] <- coverage(ns[i], B = B, pb = pb, offset = (i - 1)*B)
+  results[i] <- coverage(ns[i], B = B, offset = (i - 1)*B)
 }
 
 close(pb)
