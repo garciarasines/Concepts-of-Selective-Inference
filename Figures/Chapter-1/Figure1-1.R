@@ -31,7 +31,7 @@ close(pb)
 
 df <- data.frame(n = ns, coverage = results)
 
-p <- ggplot(df, aes(x = n, y = coverage)) +
+p_plot <- ggplot(df, aes(x = n, y = coverage)) +
   geom_point(shape = 16, size = 2, color = "black") +
   geom_line(linewidth = 0.4, color = "black") +
   geom_hline(yintercept = 0.95, linetype = "dashed", color = "black") +
@@ -39,4 +39,4 @@ p <- ggplot(df, aes(x = n, y = coverage)) +
   labs(x = "n", y = "Coverage") +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-1", "winners.pdf"), plot = p, width = 5, height = 5)
+ggsave(file.path("Figures", "Chapter-1", "winners.pdf"), plot = p_plot, width = 5, height = 5)
