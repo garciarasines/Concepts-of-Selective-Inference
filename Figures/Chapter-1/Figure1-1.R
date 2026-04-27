@@ -40,11 +40,11 @@ results <- stepwise_p_values(n, p)
 
 df <- data.frame(p_value = results)
 
-p <- ggplot(df, aes(x = p_value)) +
+p_plot <- ggplot(df, aes(x = p_value)) +
   stat_ecdf(geom = "step", linewidth = 0.4, color = "black") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   coord_cartesian(xlim = c(0, 1), ylim = c(0, 1)) +
   labs(x = "p-value", y = "Empirical CDF") +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-1", "stepwise.pdf"), plot = p, width = 5, height = 5)
+ggsave(file.path("Figures", "Chapter-1", "stepwise.pdf"), plot = p_plot, width = 5, height = 5)
