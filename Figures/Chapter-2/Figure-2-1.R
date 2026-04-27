@@ -6,7 +6,7 @@ posi_constants <- function(p, n_max, B = 5e4) {
   diag(Sigma) <- 1
   L <- chol(Sigma)
   
-  X_max <- t(t(L) %*% matrix(rnorm(p * n_max), nrow = p))
+  X_max <- t(t(L) %*% matrix(rnorm(p*n_max), nrow = p))
   
   ns <- 10:n_max
   Ks1 <- numeric(length(ns))
