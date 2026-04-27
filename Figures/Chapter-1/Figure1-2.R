@@ -7,7 +7,7 @@ stepwise_p_values <- function(n, p, B = 1e4) {
   pb <- txtProgressBar(min = 0, max = B, style = 3)
   
   for (b in seq_len(B)) {
-    X <- data.frame(matrix(rnorm(n * p), ncol = p))
+    X <- data.frame(matrix(rnorm(n*p), ncol = p))
     y <- rnorm(n)
     
     min_model <- lm(y ~ 1, data = X)
