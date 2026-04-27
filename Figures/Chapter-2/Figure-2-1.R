@@ -46,4 +46,4 @@ p_plot <- ggplot(df, aes(x = n)) +
   labs(x = "n", y = "K") +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-2", "posi_constants.pdf"), plot = p_plot, width = 6, height = 4)
+ggsave(file.path("Figures", "Chapter-2", "fig-2-1.pdf"), plot = p_plot, width = 6, height = 4)
