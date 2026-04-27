@@ -23,7 +23,7 @@ model_probability <- function(p, n, B, sigma) {
   max(table(v))/B
 }
 
-B <- 1e4
+B <- 2e4
 n <- 80
 sigma <- 1
 p_grid <- seq(10, 30, length.out = 5)
