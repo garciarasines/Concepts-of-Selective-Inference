@@ -14,11 +14,7 @@ make_ancillarity_plot <- function() {
   dens_right <- dens_scale*dens_right
   
   df_curve <- data.frame(x = x, mu = mu)
-  df_dens <- data.frame(
-    x = x,
-    dens_left = dens_left,
-    dens_right = dens_right
-  )
+  df_dens <- data.frame(x = x, dens_left = dens_left, dens_right = dens_right)
   
   x1 <- -1.35
   x2 <- 1.70
