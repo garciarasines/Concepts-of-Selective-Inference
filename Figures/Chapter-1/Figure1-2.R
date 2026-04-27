@@ -13,12 +13,7 @@ stepwise_p_values <- function(n, p, B = 1e4) {
     min_model <- lm(y ~ 1, data = X)
     max_model <- formula(lm(y ~ ., data = X))
     
-    fit_step <- stepAIC(
-      min_model,
-      direction = "forward",
-      scope = max_model,
-      trace = FALSE
-    )
+    fit_step <- stepAIC(min_model, direction = "forward", scope = max_model, trace = FALSE)
     
     p_values[[b]] <- summary(fit_step)$coefficients[, 4]
     
