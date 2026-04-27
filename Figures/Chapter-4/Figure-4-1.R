@@ -45,4 +45,4 @@ p <- ggplot(df, aes(x = mu2)) +
   labs(x = expression(mu[2]), y = "Coverage", title = "Figure 4.1: Selected mean") +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-4", "selected_mean.pdf"), plot = p, width = 7, height = 5)
+ggsave(file.path("Figures", "Chapter-4", "fig-4-1.pdf"), plot = p, width = 7, height = 5)
