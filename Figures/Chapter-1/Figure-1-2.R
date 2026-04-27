@@ -44,4 +44,4 @@ p_plot <- ggplot(df, aes(x = p_value)) +
   ) +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-1", "fig-1-2.pdf"), plot = p_plot, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-1-2.pdf"), plot = p_plot, width = 5, height = 5)
