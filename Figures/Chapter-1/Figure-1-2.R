@@ -26,12 +26,11 @@ stepwise_p_values <- function(n, p, B = 1e4) {
   unlist(p_values)
 }
 
-B <- 1e4
 n <- 80
 p <- 20
 
 set.seed(123)
-results <- stepwise_p_values(n, p, B)
+results <- stepwise_p_values(n, p)
 
 df <- data.frame(p_value = results)
 
