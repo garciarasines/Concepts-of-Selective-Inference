@@ -1,6 +1,6 @@
 source(file.path("Figures", "theme.R"))
 
-make_ancillarity_plot <- function() {
+ancillarity_plot_1 <- function() {
   x <- seq(-3, 3.5, length.out = 1000)
   
   mu <- 0.80 + 0.18*x + 0.18*x^2
@@ -88,6 +88,6 @@ make_ancillarity_plot <- function() {
     theme_book
 }
 
-p_plot <- make_ancillarity_plot()
+p_plot <- ancillarity_plot_1()
 
 ggsave(file.path("Figures", "Chapter-3", "fig-3-1.pdf"), plot = p_plot, width = 5, height = 5)
