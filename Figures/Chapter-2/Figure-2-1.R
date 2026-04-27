@@ -9,7 +9,7 @@ Sigma <- matrix(0.5, nrow = p, ncol = p)
 diag(Sigma) <- 1
 L <- chol(Sigma)
 
-set.seed(111)
+set.seed(123)
 X_max <- t(t(L) %*% matrix(rnorm(p * n_max), nrow = p))
 
 ns <- 10:n_max
@@ -27,11 +27,7 @@ for (idx in seq_along(ns)) {
   Ks2[idx] <- summary(posi_small, df.err = NULL)[1, 1]
 }
 
-df <- data.frame(
-  n = ns,
-  Ks1 = Ks1,
-  Ks2 = Ks2
-)
+df <- data.frame(n = ns, Ks1 = Ks1, Ks2 = Ks2)
 
 p_plot <- ggplot(df, aes(x = n)) +
   geom_point(aes(y = Ks1), shape = 16, size = 1.8) +
