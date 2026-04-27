@@ -2,7 +2,7 @@ source(file.path("Figures", "theme.R"))
 
 B <- 1e6
 
-set.seed(111)
+set.seed(123)
 K <- quantile(replicate(1e5, max(abs(rnorm(2)))), 0.95)
 e1s <- rnorm(B)
 e2s <- rnorm(B)
@@ -11,27 +11,33 @@ coverages <- function(mu2) {
   mu <- c(0, mu2)
   I <- numeric(B)
   cov <- numeric(B)
-
+  
   for (b in seq_len(B)) {
     y1 <- mu[1] + e1s[b]
     y2 <- mu[2] + e2s[b]
     y <- c(y1, y2)
-
+    
     I[b] <- which(y == max(y))
     yI <- y[I[b]]
-    cov[b] <- (abs(yI - mu[I[b]]) < K)
+    cov[b] <- abs(yI - mu[I[b]]) < K
   }
-
+  
   c(mean(cov), mean(cov[I == 1]), mean(cov[I == 2]))
 }
 
-mu2s <- seq(0, 3, length.out = 1e2)
-res <- sapply(mu2s, coverages)
+mu2s <- seq(0, 3, length.out = 50)
+res <- matrix(NA, nrow = 3, ncol = length(mu2s))
 
-df <- data.frame(
-  mu2 = mu2s,
-  cov1 = res[2, ],
-  cov2 = res[3, ]
+pb <- txtProgressBar(min = 0, max = length(mu2s), style = 3)
+
+for (idx in seq_along(mu2s)) {
+  res[, idx] <- coverages(mu2s[idx])
+  setTxtProgressBar(pb, idx)
+}
+
+close(pb)
+
+df <- data.frame(mu2 = mu2s, cov1 = res[2, ], cov2 = res[3, ]
 )
 
 p_plot <- ggplot(df, aes(x = mu2)) +
