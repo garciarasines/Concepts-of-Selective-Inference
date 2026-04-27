@@ -1,3 +1,3 @@
 # Concepts-of-Selective-Inference
 
-To generate the figures, go to Actions -> ...
+All figures are saved in XXX
