@@ -87,5 +87,5 @@ p_plot_b <- ggplot(df_b, aes(x = y)) +
   labs(x = "y", y = "CIs", title = expression(E == "["*-2*", "*2*"]")) +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-4", "fig-4-4-a.pdf"), plot = p_plot_a, width = 5, height = 5)
-ggsave(file.path("Figures", "Chapter-4", "fig-4-4-b.pdf"), plot = p_plot_b, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-4-4-a.pdf"), plot = p_plot_a, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-4-4-b.pdf"), plot = p_plot_b, width = 5, height = 5)
