@@ -47,4 +47,4 @@ p_plot <- ggplot(data.frame(p = p_grid, probability = res), aes(x = p, y = log(p
   labs(x = "p", y = "log probability") +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-5", "fig-5-2.pdf"), plot = p_plot, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-5-2.pdf"), plot = p_plot, width = 5, height = 5)
