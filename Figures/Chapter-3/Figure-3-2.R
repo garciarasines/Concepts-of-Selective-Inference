@@ -1,6 +1,6 @@
 source(file.path("Figures", "theme.R"))
 
-make_linear_regression_plot <- function() {
+ancillarity_plot_2 <- function() {
   x <- seq(-3, 3.5, length.out = 1000)
   
   mu <- 1.55 + 0.28*x
@@ -68,6 +68,6 @@ make_linear_regression_plot <- function() {
     theme_book
 }
 
-p_plot <- make_linear_regression_plot()
+p_plot <- ancillarity_plot_2()
 
 ggsave(file.path("Figures", "Chapter-3", "fig-3-2.pdf"), plot = p_plot, width = 5, height = 5)
