@@ -13,7 +13,6 @@ coverage <- function(n, B = 5e4, offset = 0) {
 }
 
 ns <- 1 + 5*(0:20)
-B <- 5e4
 
 set.seed(123)
 
