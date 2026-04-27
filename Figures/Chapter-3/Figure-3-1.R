@@ -1,4 +1,3 @@
-library(ggplot2)
 source(file.path("Figures", "theme.R"))
 
 make_ancillarity_plot <- function() {
