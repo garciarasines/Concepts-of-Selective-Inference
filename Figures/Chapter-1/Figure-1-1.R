@@ -15,16 +15,16 @@ coverage <- function(n, B = 5e4, pb = NULL, offset = 0) {
   mean(covered)
 }
 
-ns <- 1 + 5 * (0:20)
+ns <- 1 + 5*(0:20)
 B <- 5e4
 
 set.seed(123)
 
 results <- numeric(length(ns))
-pb <- txtProgressBar(min = 0, max = length(ns) * B, style = 3)
+pb <- txtProgressBar(min = 0, max = length(ns)*B, style = 3)
 
 for (i in seq_along(ns)) {
-  results[i] <- coverage(ns[i], B = B, pb = pb, offset = (i - 1) * B)
+  results[i] <- coverage(ns[i], B = B, pb = pb, offset = (i - 1)*B)
 }
 
 close(pb)
