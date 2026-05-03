@@ -6,7 +6,7 @@ This folder contains external datasets used in the numerical examples and figure
 
 **Source.** Efron, Hastie, Johnstone and Tibshirani (2004), *Least Angle Regression*.
 
-**Description.** Baseline clinical measurements for diabetes patients, together with a quantitative measure of disease progression one year after baseline. We use the version included in the `lars` R package.
+**Description.** Baseline clinical measurements for diabetes patients, together with a quantitative measure of disease progression one year after baseline. This is the version included in the `lars` R package.
 
 **Dimension.** `n = 442`, `p = 10`.
 
