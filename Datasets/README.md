@@ -12,7 +12,7 @@ This folder contains external datasets used in the numerical examples and figure
 
 ## HIV drug resistance
 
-**Source.** Foygel Barber and Candès (2015), *Controlling the false discovery rate via knockoffs*; Panigrahi et al. (2024), paper using the Stanford HIV Drug Resistance Database for selective-inference illustrations.
+**Source.** Barber and Candès (2015), *Controlling the false discovery rate via knockoffs*; Panigrahi et al. (2024), paper using the Stanford HIV Drug Resistance Database for selective-inference illustrations.
 
 **Description.** Data relating HIV mutations to resistance against antiretroviral drugs. The objective is to identify associations between viral mutations and drug resistance.
 
