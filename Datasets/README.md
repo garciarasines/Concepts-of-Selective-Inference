@@ -1,6 +1,6 @@
 # Datasets
 
-This folder contains external datasets used in the numerical examples and figures of the monograph. The files are included or loaded only for reproducibility.
+This folder contains external datasets used in the numerical examples and figures of the monograph.
 
 ## HIV drug resistance
 
