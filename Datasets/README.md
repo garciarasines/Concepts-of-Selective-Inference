@@ -2,6 +2,14 @@
 
 This folder contains external datasets used in the numerical examples and figures of the monograph. The files are included or loaded only for reproducibility.
 
+## HIV drug resistance
+
+**Source.** Foygel Barber and Candès (2015), *Controlling the false discovery rate via knockoffs*; Panigrahi et al. (2024), paper using the Stanford HIV Drug Resistance Database for selective-inference illustrations.
+
+**Description.** Data relating HIV mutations to resistance against antiretroviral drugs. The objective is to identify associations between viral mutations and drug resistance.
+
+**Dimension.** `n` and `p` depend on the selected drug/resistance subset.
+
 ## Diabetes
 
 **Source.** Efron, Hastie, Johnstone and Tibshirani (2004), *Least Angle Regression*.
@@ -18,10 +26,3 @@ This folder contains external datasets used in the numerical examples and figure
 
 **Dimension.** `n = 102`, `p = 6033`.
 
-## HIV drug resistance
-
-**Source.** Foygel Barber and Candès (2015), *Controlling the false discovery rate via knockoffs*; Panigrahi et al. (2024), paper using the Stanford HIV Drug Resistance Database for selective-inference illustrations.
-
-**Description.** Data relating HIV mutations to resistance against antiretroviral drugs. The objective is to identify associations between viral mutations and drug resistance.
-
-**Dimension.** `n` and `p` depend on the selected drug/resistance subset.
