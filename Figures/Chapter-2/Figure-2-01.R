@@ -6,7 +6,7 @@ posi_constants <- function(p, n_max, B = 5e4) {
   diag(Sigma) <- 1
   L <- chol(Sigma)
   
-  X_max <- t(t(L) %*% matrix(rnorm(p*n_max), nrow = p))
+  X_max <- t(t(L)%*%matrix(rnorm(p*n_max), nrow = p))
   
   ns <- 10:n_max
   Ks1 <- numeric(length(ns))
@@ -46,4 +46,4 @@ p_plot <- ggplot(df, aes(x = n)) +
   labs(x = "n", y = "K") +
   theme_book
 
-ggsave(file.path("Figures", "Outputs", "fig-2-1.pdf"), plot = p_plot, width = 6, height = 4)
+ggsave(file.path("Figures", "Outputs", "fig-2-01.pdf"), plot = p_plot, width = 4, height = 3)
