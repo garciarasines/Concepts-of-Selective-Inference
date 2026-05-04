@@ -111,4 +111,4 @@ p_combined <- p_plot_a / p_plot_b +
     plot.tag.position = c(0, 1)
   )
 
-ggsave(file.path("Figures", "Outputs", "fig-4-04.pdf"), plot = p_combined, width = 4, height = 7)
+ggsave(file.path("Figures", "Outputs", "fig-4-04.pdf"), plot = p_combined, width = 4, height = 6)
