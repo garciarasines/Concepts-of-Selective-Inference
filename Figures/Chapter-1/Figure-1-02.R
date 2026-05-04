@@ -41,4 +41,4 @@ p_plot <- ggplot(df, aes(x = p_value)) +
   labs(x = "p-value", y = "Empirical CDF") +
   theme_book
 
-ggsave(file.path("Figures", "Outputs", "fig-1-2.pdf"), plot = p_plot, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-1-02.pdf"), plot = p_plot, width = 4, height = 3)
