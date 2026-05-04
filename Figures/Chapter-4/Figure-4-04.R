@@ -1,3 +1,4 @@
+library(patchwork)
 source(file.path("Figures", "theme.R"))
 
 CDF_a <- function(y, mu) {
@@ -31,22 +32,27 @@ U_us_a <- sapply(ys_a, U_u_a)
 df_a <- data.frame(y = ys_a, L = Ls_a, U = Us_a, L_u = L_us_a, U_u = U_us_a)
 
 p_plot_a <- ggplot(df_a, aes(x = y)) +
-  geom_line(aes(y = L), linewidth = 1, linetype = "longdash") +
-  geom_line(aes(y = U), linewidth = 1, linetype = "longdash") +
+  geom_line(aes(y = L), linewidth = 1, linetype = "33") +
+  geom_line(aes(y = U), linewidth = 1, linetype = "33") +
   geom_line(aes(y = L_u), linewidth = 1, linetype = "solid") +
   geom_line(aes(y = U_u), linewidth = 1, linetype = "solid") +
   geom_vline(xintercept = 0, linewidth = 0.4, color = "grey70") +
   geom_abline(slope = 1, intercept = 0, linewidth = 1, linetype = "dotted", color = "grey70") +
   coord_cartesian(ylim = c(-10, 5)) +
-  labs(x = "y", y = "CIs", title = expression(E == "["*0*", "*infinity*")")) +
-  theme_book
-
+  labs(x = "y", y = "CIs", title = expression(E == "[" * 0 * ", " * infinity * ")")) +
+  theme_book +
+  theme(plot.title = element_text(color = "black"))
 
 a <- -2
 b <- 2
 
 CDF_b <- function(y, mu) {
-  1/(1 - exp(pnorm(b - mu, log.p = TRUE, lower.tail = FALSE) - pnorm(a - mu, log.p = TRUE, lower.tail = FALSE))) - 1/(exp(pnorm(a - mu, log.p = TRUE, lower.tail = FALSE) - pnorm(y - mu, log.p = TRUE, lower.tail = FALSE)) - exp(pnorm(b - mu, log.p = TRUE, lower.tail = FALSE) - pnorm(y - mu, log.p = TRUE, lower.tail = FALSE)))
+  1 / (1 - exp(pnorm(b - mu, log.p = TRUE, lower.tail = FALSE) -
+                 pnorm(a - mu, log.p = TRUE, lower.tail = FALSE))) -
+    1 / (exp(pnorm(a - mu, log.p = TRUE, lower.tail = FALSE) -
+               pnorm(y - mu, log.p = TRUE, lower.tail = FALSE)) -
+           exp(pnorm(b - mu, log.p = TRUE, lower.tail = FALSE) -
+                 pnorm(y - mu, log.p = TRUE, lower.tail = FALSE)))
 }
 
 L_b <- function(y) {
@@ -73,19 +79,36 @@ Us_b <- sapply(ys_b, U_b)
 L_us_b <- sapply(ys_b, L_u_b)
 U_us_b <- sapply(ys_b, U_u_b)
 
-df_b <- data.frame(y = c(ys_b, -rev(ys_b)), L = c(Ls_b, -rev(Us_b)), U = c(Us_b, -rev(Ls_b)), L_u = c(L_us_b, -rev(U_us_b)), U_u = c(U_us_b, -rev(L_us_b)))
+df_b <- data.frame(
+  y = c(ys_b, -rev(ys_b)),
+  L = c(Ls_b, -rev(Us_b)),
+  U = c(Us_b, -rev(Ls_b)),
+  L_u = c(L_us_b, -rev(U_us_b)),
+  U_u = c(U_us_b, -rev(L_us_b))
+)
 
 p_plot_b <- ggplot(df_b, aes(x = y)) +
-  geom_line(aes(y = L), linewidth = 1, linetype = "longdash") +
-  geom_line(aes(y = U), linewidth = 1, linetype = "longdash") +
+  geom_line(aes(y = L), linewidth = 1, linetype = "33") +
+  geom_line(aes(y = U), linewidth = 1, linetype = "33") +
   geom_line(aes(y = L_u), linewidth = 1, linetype = "solid") +
   geom_line(aes(y = U_u), linewidth = 1, linetype = "solid") +
   geom_vline(xintercept = a, linewidth = 0.4, color = "grey70") +
   geom_vline(xintercept = b, linewidth = 0.4, color = "grey70") +
   geom_abline(slope = 1, intercept = 0, linewidth = 1, linetype = "dotted", color = "grey70") +
   coord_cartesian(ylim = c(-20, 20)) +
-  labs(x = "y", y = "CIs", title = expression(E == "["*-2*", "*2*"]")) +
-  theme_book
+  labs(x = "y", y = "CIs", title = expression(E == "[" * -2 * ", " * 2 * "]")) +
+  theme_book +
+  theme(plot.title = element_text(color = "black"))
 
-ggsave(file.path("Figures", "Outputs", "fig-4-4-a.pdf"), plot = p_plot_a, width = 5, height = 5)
-ggsave(file.path("Figures", "Outputs", "fig-4-4-b.pdf"), plot = p_plot_b, width = 5, height = 5)
+p_combined <- p_plot_a / p_plot_b +
+  plot_annotation(
+    tag_levels = "a",
+    tag_prefix = "(",
+    tag_suffix = ")"
+  ) &
+  theme(
+    plot.tag = element_text(color = "black"),
+    plot.tag.position = c(0, 1)
+  )
+
+ggsave(file.path("Figures", "Outputs", "fig-4-04.pdf"), plot = p_combined, width = 4, height = 7)
