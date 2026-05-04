@@ -2,7 +2,7 @@ source(file.path("Figures", "theme.R"))
 
 coverage <- function(n, B, offset = 0) {
   covered <- logical(B)
-
+  
   for (b in seq_len(B)) {
     y <- rnorm(n)
     covered[b] <- max(y) < 1.96 && max(y) > -1.96
@@ -13,15 +13,15 @@ coverage <- function(n, B, offset = 0) {
 }
 
 B <- 5e4
-ns <- 1 + 5*(0:20)
+ns <- 1 + 5 * (0:20)
 
 set.seed(123)
 
 results <- numeric(length(ns))
-pb <- txtProgressBar(min = 0, max = length(ns)*B, style = 3)
+pb <- txtProgressBar(min = 0, max = length(ns) * B, style = 3)
 
 for (i in seq_along(ns)) {
-  results[i] <- coverage(ns[i], offset = (i - 1)*B)
+  results[i] <- coverage(ns[i], B = B, offset = (i - 1) * B)
 }
 
 close(pb)
@@ -36,4 +36,4 @@ p_plot <- ggplot(df, aes(x = n, y = coverage)) +
   labs(x = "n", y = "Coverage") +
   theme_book
 
-ggsave(file.path("Figures", "Outputs", "fig-1-01.pdf"), plot = p_plot, width = 6, height = 4)
+ggsave(file.path("Figures", "Outputs", "fig-1-1.pdf"), plot = p_plot, width = 6, height = 4)
