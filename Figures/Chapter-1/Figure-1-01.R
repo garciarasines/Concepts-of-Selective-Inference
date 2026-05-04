@@ -36,4 +36,4 @@ p_plot <- ggplot(df, aes(x = n, y = coverage)) +
   labs(x = "n", y = "Coverage") +
   theme_book
 
-ggsave(file.path("Figures", "Outputs", "fig-1-1.pdf"), plot = p_plot, width = 6, height = 4)
+ggsave(file.path("Figures", "Outputs", "fig-1-1.pdf"), plot = p_plot, width = 4, height = 3)
