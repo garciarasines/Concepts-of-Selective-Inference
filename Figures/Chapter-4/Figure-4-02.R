@@ -2,11 +2,7 @@ source(file.path("Figures", "theme.R"))
 
 lambda <- 1
 
-X <- cbind(
-  c(1, 1)/sqrt(2),
-  c(-1, 0),
-  c(0, 1)
-)
+X <- cbind(c(1, 1)/sqrt(2), c(-1, 0), c(0, 1))
 
 target_M <- c(1, 3)
 
@@ -292,4 +288,4 @@ p_plot <- ggplot() +
     legend.position = "none"
   )
 
-ggsave(file.path("Figures", "Outputs", "fig-4-2.pdf"), plot = p_plot, width = 6, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-4-02.pdf"), plot = p_plot, width = 4, height = 3)
