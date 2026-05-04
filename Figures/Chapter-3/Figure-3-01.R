@@ -1,3 +1,4 @@
+library(patchwork)
 source(file.path("Figures", "theme.R"))
 
 ancillarity_plot_a <- function() {
@@ -159,5 +160,11 @@ ancillarity_plot_b <- function() {
 p_plot_a <- ancillarity_plot_a()
 p_plot_b <- ancillarity_plot_b()
 
-ggsave(file.path("Figures", "Outputs", "fig-3-01-a.pdf"), plot = p_plot_a, width = 4, height = 3)
-ggsave(file.path("Figures", "Outputs", "fig-3-01-b.pdf"), plot = p_plot_b, width = 4, height = 3)
+p_plot <- p_plot_a / p_plot_b +
+  plot_annotation(
+    tag_levels = "a",
+    tag_prefix = "(",
+    tag_suffix = ")"
+  )
+
+ggsave(file.path("Figures", "Outputs", "fig-3-01.pdf"), plot = p_plot, width = 4, height = 6)
