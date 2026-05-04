@@ -51,4 +51,4 @@ p_plot <- ggplot(df, aes(x = mu2)) +
   labs(x = expression(mu[2]), y = "Coverage") +
   theme_book
 
-ggsave(file.path("Figures", "Outputs", "fig-4-1.pdf"), plot = p_plot, width = 6, height = 4)
+ggsave(file.path("Figures", "Outputs", "fig-4-01.pdf"), plot = p_plot, width = 4, height = 3)
