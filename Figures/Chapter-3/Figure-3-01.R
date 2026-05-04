@@ -159,5 +159,5 @@ ancillarity_plot_b <- function() {
 p_plot_a <- ancillarity_plot_a()
 p_plot_b <- ancillarity_plot_b()
 
-ggsave(file.path("Figures", "Outputs", "fig-3-01-a.pdf"), plot = p_plot_a, width = 5, height = 5)
-ggsave(file.path("Figures", "Outputs", "fig-3-01-b.pdf"), plot = p_plot_b, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-3-01-a.pdf"), plot = p_plot_a, width = 4, height = 3)
+ggsave(file.path("Figures", "Outputs", "fig-3-01-b.pdf"), plot = p_plot_b, width = 4, height = 3)
