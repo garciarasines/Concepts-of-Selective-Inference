@@ -51,7 +51,7 @@ G3 <- function(theta, B, n) {
   mean(cov)
 }
 
-B <- 2000
+B <- 1e4
 n <- 5
 k <- qnorm(0.95)
 
@@ -96,7 +96,7 @@ df <- data.frame(
 p_plot <- ggplot(df, aes(x = theta, y = coverage, linetype = method, color = method)) +
   geom_line(linewidth = 1) +
   geom_hline(yintercept = 0.9, linewidth = 1, color = "grey70") +
-  scale_linetype_manual(values = c("solid", "dashed", "dotted")) +
+  scale_linetype_manual(values = c("solid", "42", "dotted")) +
   scale_color_manual(values = c("black", "black", "grey50")) +
   coord_cartesian(ylim = c(0, 1)) +
   labs(x = expression(theta), y = "Coverage") +
@@ -105,5 +105,3 @@ p_plot <- ggplot(df, aes(x = theta, y = coverage, linetype = method, color = met
     legend.title = element_blank(),
     legend.position = "none"
   )
-
-ggsave(file.path("Figures", "Chapter-6", "fig-6-1.pdf"), plot = p_plot, width = 5, height = 5)
