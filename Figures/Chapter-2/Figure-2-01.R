@@ -1,7 +1,7 @@
 library(PoSI)
 source(file.path("Figures", "theme.R"))
 
-posi_constants <- function(p, n_max, B = 5e4) {
+posi_constants <- function(p, n_max, B = 1e5) {
   Sigma <- matrix(0.5, nrow = p, ncol = p)
   diag(Sigma) <- 1
   L <- chol(Sigma)
