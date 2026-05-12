@@ -39,4 +39,4 @@ p_plot <- ggplot(df, aes(x = gamma)) +
   labs(x = expression(gamma), y = "I") +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-5", "fig-5-4.pdf"), plot = p_plot, width = 12, height = 4)
+ggsave(file.path("Figures", "Chapter-5", "fig-5-04.pdf"), plot = p_plot, width = 4, height = 3)
