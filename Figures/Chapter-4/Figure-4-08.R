@@ -119,4 +119,4 @@ p_plot_b <- ggplot(qq_df, aes(x = theoretical, y = empirical)) +
 
 p_plot <- p_plot_a + p_plot_b
 
-ggsave(file.path("Figures", "Outputs", "fig-4-9.pdf"), plot = p_plot, width = 8, height = 4)
+ggsave(file.path("Figures", "Outputs", "fig-4-08.pdf"), plot = p_plot, width = 6, height = 4)
