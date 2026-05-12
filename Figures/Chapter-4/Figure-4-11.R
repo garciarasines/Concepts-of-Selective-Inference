@@ -67,4 +67,4 @@ p_plot <- ggplot(
     axis.text = element_text(size = 10)
   )
 
-ggsave(file.path("Figures", "Outputs", "fig-4-12.pdf"), plot = p_plot, width = 7, height = 4)
+ggsave(file.path("Figures", "Outputs", "fig-4-11.pdf"), plot = p_plot, width = 4, height = 3)
