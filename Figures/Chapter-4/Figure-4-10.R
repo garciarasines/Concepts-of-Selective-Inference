@@ -119,4 +119,4 @@ p_plot_c <- plot_panel(
 
 p_plot <- p_plot_a + p_plot_b + p_plot_c + plot_layout(nrow = 1)
 
-ggsave(file.path("Figures", "Outputs", "fig-4-11.pdf"), plot = p_plot, width = 10, height = 3.4)
+ggsave(file.path("Figures", "Outputs", "fig-4-10.pdf"), plot = p_plot, width = 6, height = 4)
