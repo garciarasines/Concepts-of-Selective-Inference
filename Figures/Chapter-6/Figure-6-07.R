@@ -33,4 +33,4 @@ p_plot <- ggplot(df, aes(x = y)) +
   labs(x = "z values", y = "Frequency") +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-6", "fig-6-7.pdf"), plot = p_plot, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-6-07.pdf"), plot = p_plot, width = 4, height = 3)
