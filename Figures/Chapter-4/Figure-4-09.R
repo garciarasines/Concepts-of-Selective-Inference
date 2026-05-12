@@ -107,4 +107,4 @@ p_plot_c <- ggplot(dat_test, aes(x = X1, y = X2)) +
 
 p_plot <- p_plot_a + p_plot_b + p_plot_c + plot_layout(nrow = 1)
 
-ggsave(file.path("Figures", "Outputs", "fig-4-10.pdf"), plot = p_plot, width = 9, height = 3.2)
+ggsave(file.path("Figures", "Outputs", "fig-4-09.pdf"), plot = p_plot, width = 6, height = 4)
