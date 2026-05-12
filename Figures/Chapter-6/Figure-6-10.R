@@ -87,15 +87,17 @@ p_plot <- ggplot() +
     color = "black",
     linewidth = 0.2
   ) +
-  geom_freqpoly(
+  geom_histogram(
     data = subset(df_hist, method == "Uncorrected"),
     aes(x = difference),
     binwidth = 0.15,
-    linewidth = 1,
-    color = "black"
+    fill = NA,
+    color = "black",
+    linewidth = 0.8
   ) +
-  facet_wrap(~ group, nrow = 1, scales = "free_x") +
+  geom_vline(xintercept = 0, linewidth = 0.3) +
+  facet_wrap(~ group, nrow = 1, scales = "free") +
   labs(x = "Difference", y = "Counts") +
   theme_book
 
-ggsave(file.path("Figures", "Outputs", "fig-6-10.pdf"), plot = p_plot, width = 10, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-6-10.pdf"), plot = p_plot, width = 4, height = 3)
