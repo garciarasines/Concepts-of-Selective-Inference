@@ -99,4 +99,4 @@ p_plot <- ggplot() +
   labs(x = NULL, y = "CIs") +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-4", "fig-4-08.pdf"), plot = p_plot, width = 4, height = 3)
+ggsave(file.path("Figures", "Chapter-4", "fig-4-07.pdf"), plot = p_plot, width = 4, height = 3)
