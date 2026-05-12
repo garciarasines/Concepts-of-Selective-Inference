@@ -176,4 +176,4 @@ p_plot <- ggplot(df_long, aes(x = t, y = value, color = method, linetype = metho
   theme_book +
   theme(legend.position = "bottom")
 
-ggsave(file.path("Figures", "Outputs", "fig-5-9.pdf"), plot = p_plot, width = 6, height = 4)
+ggsave(file.path("Figures", "Outputs", "fig-5-09.pdf"), plot = p_plot, width = 4, height = 3)
