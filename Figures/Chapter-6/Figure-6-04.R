@@ -1,3 +1,4 @@
+library(patchwork)
 library(mvtnorm)
 source(file.path("Figures", "theme.R"))
 
@@ -119,7 +120,7 @@ df_b <- data.frame(
 
 p_plot_a <- ggplot(df_a, aes(x = theta, y = value, linetype = prior)) +
   geom_line(linewidth = 1, color = "black") +
-  scale_linetype_manual(values = c("solid", "longdash", "dotted")) +
+  scale_linetype_manual(values = c("solid", "42", "dotted")) +
   coord_cartesian(ylim = c(0, 1)) +
   labs(x = expression(theta), y = "Prior") +
   theme_book +
@@ -127,11 +128,17 @@ p_plot_a <- ggplot(df_a, aes(x = theta, y = value, linetype = prior)) +
 
 p_plot_b <- ggplot(df_b, aes(x = theta, y = value, linetype = posterior)) +
   geom_line(linewidth = 1, color = "black") +
-  scale_linetype_manual(values = c("solid", "longdash", "dotted")) +
+  scale_linetype_manual(values = c("solid", "42", "dotted")) +
   coord_cartesian(ylim = c(0, 2)) +
   labs(x = expression(theta), y = "Posterior") +
   theme_book +
   theme(legend.position = "none")
 
-ggsave(file.path("Figures", "Chapter-6", "fig-6-4-a.pdf"), plot = p_plot_a, width = 5, height = 5)
-ggsave(file.path("Figures", "Chapter-6", "fig-6-4-b.pdf"), plot = p_plot_b, width = 5, height = 5)
+p_plot <- p_plot_a / p_plot_b +
+  plot_annotation(
+    tag_levels = "a",
+    tag_prefix = "(",
+    tag_suffix = ")"
+  )
+
+ggsave(file.path("Figures", "Outputs", "fig-6-04.pdf"), plot = p_plot, width = 4, height = 6)
