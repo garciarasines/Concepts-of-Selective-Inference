@@ -32,11 +32,12 @@ df <- data.frame(
 
 p_plot <- ggplot(df, aes(x = theta, y = density, linetype = distribution, color = distribution)) +
   geom_line(linewidth = 1) +
-  scale_linetype_manual(values = c("solid", "longdash", "dotted")) +
+  scale_linetype_manual(values = c("solid", "42", "dotted")) +
   scale_color_manual(values = c("grey50", "black", "black")) +
   coord_cartesian(xlim = c(-3, 3), ylim = c(0, 0.72)) +
   labs(x = expression(theta), y = "Density") +
   theme_book +
   theme(legend.position = "none")
 
-ggsave(file.path("Figures", "Chapter-6", "fig-6-2.pdf"), plot = p_plot, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-6-2.pdf"), plot = p_plot, width = 4, height = 3)
+
