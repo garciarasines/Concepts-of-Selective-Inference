@@ -83,7 +83,7 @@ df_b <- data.frame(
 
 p_plot_a <- ggplot(df_a, aes(x = theta, y = value, linetype = prior)) +
   geom_line(linewidth = 1, color = "black") +
-  scale_linetype_manual(values = c("solid", "longdash", "dotted")) +
+  scale_linetype_manual(values = c("solid", "42", "dotted")) +
   coord_cartesian(xlim = c(-3, 3), ylim = c(0, 1.1)) +
   labs(x = expression(theta), y = "Prior") +
   theme_book +
