@@ -52,9 +52,10 @@ p_plot <- ggplot(df, aes(x = difference, y = after_stat(density))) +
     linewidth = 0.3,
     alpha = 0.8
   ) +
+  geom_vline(xintercept = 0, linewidth = 0.3) +
   coord_cartesian(xlim = c(-2, 4.5), ylim = c(0, 0.7)) +
   labs(x = "Difference", y = "Density") +
   theme_book +
   theme(legend.position = "none")
 
-ggsave(file.path("Figures", "Chapter-6", "fig-6-5.pdf"), plot = p_plot, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-6-05.pdf"), plot = p_plot, width = 4, height = 3)
