@@ -105,3 +105,5 @@ p_plot <- ggplot(df, aes(x = theta, y = coverage, linetype = method, color = met
     legend.title = element_blank(),
     legend.position = "none"
   )
+
+  ggsave(file.path("Figures", "Outputs", "fig-6-01.pdf"), plot = p_plot, width = 4, height = 3)
