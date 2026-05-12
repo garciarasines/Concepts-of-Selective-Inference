@@ -73,20 +73,10 @@ p_plot <- ggplot() +
     intercept = 0,
     linewidth = 0.4,
     linetype = "dotted",
-    color = "grey70"
+    color = "grey55"
   ) +
-  geom_hline(
-    yintercept = 0,
-    linewidth = 0.4,
-    linetype = "dotted",
-    color = "grey70"
-  ) +
-  geom_vline(
-    xintercept = 0,
-    linewidth = 0.4,
-    linetype = "dotted",
-    color = "grey70"
-  ) +
+  geom_vline(xintercept = 0, linewidth = 0.3) +
+  geom_hline(yintercept = 0, linewidth = 0.3) +
   geom_point(
     data = df_curve,
     aes(x = z, y = mu_bayes),
@@ -104,19 +94,19 @@ p_plot <- ggplot() +
     data = df_selected,
     aes(x = z, y = mu_hat),
     shape = 16,
-    size = 1.2,
+    size = 2,
     color = "black"
   ) +
   geom_segment(
     data = df_selected,
-    aes(x = z, xend = z, y = -0.05, yend = 0.05),
+    aes(x = z, xend = z, y = -0.1, yend = 0.1),
     linewidth = 0.3,
     color = "black"
   ) +
   annotate("point", x = 0, y = 0, shape = 16, size = 1.4, color = "black") +
-  annotate("text", x = 6.25, y = -0.35, label = "100 largest z[i]'s", size = 3) +
+  annotate("text", x = 6.25, y = -0.35, label = "100 largest z_i's", size = 4) +
   coord_cartesian(xlim = c(-4, 10), ylim = c(-1, 8.5)) +
   labs(x = "z value", y = expression(hat(mu))) +
   theme_book
 
-ggsave(file.path("Figures", "Outputs", "fig-6-9.pdf"), plot = p_plot, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-6-09.pdf"), plot = p_plot, width = 4, height = 3)
