@@ -59,7 +59,9 @@ p_plot <- ggplot() +
     linewidth = 1,
     color = "grey50"
   ) +
+  geom_vline(xintercept = 0, linewidth = 0.3) +
+  geom_hline(yintercept = 0, linewidth = 0.3) +
   labs(x = "y", y = "log count") +
   theme_book
 
-ggsave(file.path("Figures", "Outputs", "fig-6-8.pdf"), plot = p_plot, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-6-08.pdf"), plot = p_plot, width = 4, height = 3)
