@@ -101,4 +101,4 @@ p_plot <- ggplot(df_11, aes(x = theta, y = w, linetype = method, color = method)
     legend.position = "top"
   )
 
-ggsave(file.path("Figures", "Outputs", "fig-6-11.pdf"), plot = p_plot, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-6-11.pdf"), plot = p_plot, width = 4, height = 3)
