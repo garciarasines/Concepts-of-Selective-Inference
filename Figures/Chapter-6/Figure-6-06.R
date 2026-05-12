@@ -37,4 +37,4 @@ p_plot <- ggplot(df_plot, aes(x = x)) +
   labs(x = "z", y = "Counts") +
   theme_book
 
-ggsave(file.path("Figures", "Chapter-6", "fig-6-6.pdf"), plot = p_plot, width = 5, height = 5)
+ggsave(file.path("Figures", "Outputs", "fig-6-06.pdf"), plot = p_plot, width = 4, height = 3)
