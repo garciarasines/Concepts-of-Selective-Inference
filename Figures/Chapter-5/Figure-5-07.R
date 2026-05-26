@@ -244,4 +244,4 @@ p_d <- plot_panel(res_d, xlim = c(0, 4), ylim_eff = 1, panel_label = "(d)")
 
 p_plot <- (p_a + p_b) / (p_c + p_d) + plot_layout(guides = "collect") & theme(legend.position = "bottom")
 
-ggsave(file.path("Figures", "Outputs", "fig-5-08.pdf"), plot = p_plot, width = 6, height = 4)
+ggsave(file.path("Figures", "Outputs", "fig-5-07.pdf"), plot = p_plot, width = 6, height = 4)
