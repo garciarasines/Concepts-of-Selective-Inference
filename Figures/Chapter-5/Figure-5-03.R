@@ -30,8 +30,6 @@ p_plot_a <- ggplot(df_split, aes(x = x, y = y)) +
   theme(legend.position = "none")
 
 p_plot_b <- ggplot(df_rand, aes(x = x)) +
-  geom_segment(aes(xend = x, y = v, yend = u), linewidth = 0.8, color = "black") +
-  geom_point(aes(y = y), shape = 16, size = 2.2, color = "grey50") +
   geom_point(aes(y = u), shape = 16, size = 2.2, color = "black") +
   geom_point(aes(y = v), shape = 1, size = 2.2, color = "black") +
   coord_cartesian(xlim = c(1.4, 4.6), ylim = ylim_plot) +
