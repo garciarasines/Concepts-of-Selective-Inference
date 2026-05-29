@@ -1,4 +1,3 @@
-library(ggplot2)
 library(patchwork)
 source(file.path("Figures", "theme.R"))
 
