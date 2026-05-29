@@ -1,3 +1,4 @@
+library(patchwork)
 library(truncnorm)
 source(file.path("Figures", "theme.R"))
 
