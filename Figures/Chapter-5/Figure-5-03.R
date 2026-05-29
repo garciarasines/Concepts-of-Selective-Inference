@@ -1,3 +1,4 @@
+library(patchwork)
 source(file.path("Figures", "theme.R"))
 
 set.seed(123)
