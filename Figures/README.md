@@ -6,7 +6,7 @@ All generated figures are saved in the `Outputs/` subfolder.
 
 ## External figure sources
 
-Some figures are reproduced or adapted from previously published work:
+The following figures are taken from external sources:
 
 - Figure 4.6 is taken from Figure 4 of Lee, J. D., Sun, D. L., Sun, Y., & Taylor, J. E. (2016). “Exact post-selection inference, with application to the lasso.” *The Annals of Statistics*, 44(3), 907–927. DOI: 10.1214/15-AOS1371.
 
