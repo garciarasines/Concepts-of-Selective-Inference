@@ -164,7 +164,7 @@ p_plot <- ggplot() +
   ) +
   theme_book +
   theme(
-    legend.position = c(0.25, 0.17),
+    legend.position = c(0.7, 0.7),
     legend.background = element_blank(),
     legend.key = element_blank(),
     panel.grid.minor = element_blank(),
