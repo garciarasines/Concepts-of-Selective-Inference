@@ -39,5 +39,5 @@ p_plot <- ggplot(df, aes(x = theta, y = density, linetype = distribution, color 
   theme_book +
   theme(legend.position = "none")
 
-ggsave(file.path("Figures", "Outputs", "fig-6-2.pdf"), plot = p_plot, width = 4, height = 3)
+ggsave(file.path("Figures", "Outputs", "fig-6-02.pdf"), plot = p_plot, width = 4, height = 3)
 
