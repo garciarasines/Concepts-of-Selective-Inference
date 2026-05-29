@@ -1,5 +1,5 @@
-library(patchwork)
 library(truncnorm)
+library(patchwork)
 source(file.path("Figures", "theme.R"))
 
 coverage_a <- function(mu, B = 4e4) {
