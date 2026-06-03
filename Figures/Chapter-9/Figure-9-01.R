@@ -58,7 +58,7 @@ p_stab <- ggplot(df_stab, aes(x = eta)) +
     sec.axis = sec_axis(
       trans = ~ stab_to_right(.),
       name = "Unadj. cov.",
-      breaks = seq(0.75, 1, by = 0.05)
+      breaks = seq(0.65, 1, by = 0.05)
     )
   ) +
   labs(x = expression(eta), title = "Stability") +
