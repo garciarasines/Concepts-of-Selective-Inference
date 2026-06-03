@@ -22,7 +22,7 @@ df_rand <- data.frame(
 
 stab_left_min <- 0
 stab_left_max <- 12
-stab_right_min <- 0.75
+stab_right_min <- 0.65
 stab_right_max <- 1
 
 stab_to_left <- function(z) {
