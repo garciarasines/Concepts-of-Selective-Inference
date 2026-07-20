@@ -64,18 +64,13 @@ ancillarity_plot_a <- function() {
       data = df_dens,
       aes(x = x, y = dens_left),
       linewidth = 1,
-      color = "black"
+      color = "grey"
     ) +
     geom_line(
       data = df_dens,
       aes(x = x, y = dens_right),
       linewidth = 1,
-      color = "black"
-    ) +
-    geom_hline(
-      yintercept = 0,
-      linewidth = 0.2,
-      color = "grey70"
+      color = "grey"
     ) +
     coord_cartesian(
       xlim = c(-3, 3.3),
@@ -132,18 +127,13 @@ ancillarity_plot_b <- function() {
       data = df_dens,
       aes(x = x, y = dens_left),
       linewidth = 1,
-      color = "black"
+      color = "grey"
     ) +
     geom_line(
       data = df_dens,
       aes(x = x, y = dens_right),
       linewidth = 1,
-      color = "black"
-    ) +
-    geom_hline(
-      yintercept = 0,
-      linewidth = 0.2,
-      color = "grey70"
+      color = "grey"
     ) +
     coord_cartesian(
       xlim = c(-3, 3.3),
