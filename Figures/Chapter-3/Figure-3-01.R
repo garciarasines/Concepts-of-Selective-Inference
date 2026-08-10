@@ -1,170 +1,176 @@
-library(patchwork)
 source(file.path("Figures", "theme.R"))
 
-ancillarity_plot_a <- function() {
-  x <- seq(-3, 3.5, length.out = 1000)
+Kval <- function(delta, k) {
+  qnorm((1 + (1 - delta)^(1/k))/2)
+}
+
+B <- 5e4
+nummeans <- 10
+alpha <- 0.1
+nu <- 0.05*alpha
+
+set.seed(123)
+
+K1 <- Kval(alpha, nummeans)
+
+const <- numeric(nummeans)
+for (j in seq_len(nummeans)) {
+  const[j] <- Kval(alpha - nu, j)
+}
+
+es <- matrix(rnorm(nummeans*B), nrow = nummeans, ncol = B)
+
+K2 <- Kval(nu, nummeans)
+
+coverages <- function(spread) {
+  I <- numeric(B)
+  J <- numeric(B)
+  agree <- numeric(B)
+  cov <- numeric(B)
+  covunadj <- numeric(B)
+  covCOS <- numeric(B)
+  covls <- numeric(B)
+  len <- numeric(B)
+  lenunadj <- numeric(B)
+  lenCOS <- numeric(B)
+  lenls <- numeric(B)
+  quant <- qnorm(0.95)
   
-  mu <- 0.80 + 0.18*x + 0.18*x^2
-  
-  dens_left <- dnorm(x, mean = -1.1, sd = 0.55)
-  dens_right <- dnorm(x, mean = 1.7, sd = 0.42)
-  
-  dens_scale <- 0.55
-  dens_left <- dens_scale*dens_left
-  dens_right <- dens_scale*dens_right
-  
-  df_curve <- data.frame(x = x, mu = mu)
-  df_dens <- data.frame(x = x, dens_left = dens_left, dens_right = dens_right)
-  
-  x1 <- -1.35
-  x2 <- 1.70
-  
-  y1 <- 0.80 + 0.18*x1 + 0.18*x1^2
-  y2 <- 0.80 + 0.18*x2 + 0.18*x2^2
-  
-  slope1 <- 0.18 + 2*0.18*x1
-  slope2 <- 0.18 + 2*0.18*x2
-  
-  tangent <- function(x, x0, y0, slope) {
-    y0 + slope*(x - x0)
+  for (b in seq_len(B)) {
+    mu <- rnorm(nummeans, sd = spread)
+    J[b] <- which(mu == max(mu))
+    y <- mu + es[, b]
+    I[b] <- which(y == max(y))
+    yI <- y[I[b]]
+    
+    cov[b] <- abs(yI - mu[I[b]]) < K1
+    len[b] <- 2*K1
+    
+    covunadj[b] <- abs(yI - mu[I[b]]) < quant
+    lenunadj[b] <- 2*quant
+    
+    thresh <- max(y[-I[b]])
+    yobs <- y[I[b]]
+    
+    CDF_yobs <- function(theta) {
+      pdf_fun <- function(z) {
+        exp(dnorm(z, mean = theta, sd = 1, log = TRUE) - pnorm(theta - thresh, mean = 0, sd = 1, log.p = TRUE))
+      }
+      integrate(pdf_fun, lower = thresh, upper = yobs)$value
+    }
+    
+    index <- sum(y > y[I[b]] - 4*K2)
+    temp <- min(const[index], K1)
+    
+    lowerls <- y[I[b]] - temp
+    upperls <- y[I[b]] + temp
+    
+    covls[b] <- (mu[I[b]] < upperls)*(mu[I[b]] > lowerls)
+    lenls[b] <- upperls - lowerls
+    
+    lower <- tryCatch(uniroot(function(x) CDF_yobs(x) - 0.95, c(yobs - qnorm(0.95) - 400, yobs - qnorm(0.95) + 10))$root, error = function(e) -Inf)
+    upper <- tryCatch(uniroot(function(x) CDF_yobs(x) - 0.05, c(yobs + qnorm(0.95) - 400, yobs + qnorm(0.95) + 10))$root, error = function(e) Inf)
+    
+    covCOS[b] <- (mu[I[b]] < upper)*(mu[I[b]] > lower)
+    lenCOS[b] <- upper - lower
+    
+    agree[b] <- as.numeric(I[b] == J[b])
   }
   
-  df_tangent_left <- data.frame(
-    x = seq(-2.65, 0.35, length.out = 200)
-  )
-  df_tangent_left$y <- tangent(df_tangent_left$x, x1, y1, slope1)
-  
-  df_tangent_right <- data.frame(
-    x = seq(0.55, 2.85, length.out = 200)
-  )
-  df_tangent_right$y <- tangent(df_tangent_right$x, x2, y2, slope2)
-  
-  ggplot() +
-    geom_line(
-      data = df_curve,
-      aes(x = x, y = mu),
-      linewidth = 1,
-      color = "black"
-    ) +
-    geom_line(
-      data = df_tangent_left,
-      aes(x = x, y = y),
-      linewidth = 1,
-      color = "black",
-      linetype = "dashed"
-    ) +
-    geom_line(
-      data = df_tangent_right,
-      aes(x = x, y = y),
-      linewidth = 1,
-      color = "black",
-      linetype = "dashed"
-    ) +
-    geom_line(
-      data = df_dens,
-      aes(x = x, y = dens_left),
-      linewidth = 1,
-      color = "black"
-    ) +
-    geom_line(
-      data = df_dens,
-      aes(x = x, y = dens_right),
-      linewidth = 1,
-      color = "black"
-    ) +
-    geom_hline(
-      yintercept = 0,
-      linewidth = 0.2,
-      color = "grey70"
-    ) +
-    coord_cartesian(
-      xlim = c(-3, 3.3),
-      ylim = c(-0.05, 3.1),
-      expand = FALSE
-    ) +
-    labs(
-      x = "x",
-      y = expression(mu(x))
-    ) +
-    theme_book
+  c(spread, mean(agree), median(len), median(lenls), median(lenCOS), mean(cov), mean(covls), mean(covCOS), median(lenunadj), mean(covunadj))
 }
 
-ancillarity_plot_b <- function() {
-  x <- seq(-3, 3.5, length.out = 1000)
-  
-  mu <- 1.55 + 0.28*x
-  mu_dash <- mu - 0.01
-  
-  dens_left <- dnorm(x, mean = -1.1, sd = 0.55)
-  dens_right <- dnorm(x, mean = 1.7, sd = 0.42)
-  
-  dens_scale <- 0.55
-  dens_left <- dens_scale*dens_left
-  dens_right <- dens_scale*dens_right
-  
-  df_lines <- data.frame(
-    x = x,
-    mu = mu,
-    mu_dash = mu_dash
+spreads <- seq(1, 20, length.out = 77)
+
+pb <- txtProgressBar(min = 0, max = length(spreads), style = 3)
+
+res <- sapply(seq_along(spreads), function(j) {
+  out <- coverages(spreads[j])
+  setTxtProgressBar(pb, j)
+  out
+})
+
+close(pb)
+
+df_length <- data.frame(
+  x = rep(res[1, ], 4),
+  y = c(res[3, ], res[4, ], res[5, ], res[9, ]),
+  method = factor(
+    rep(c("Simultaneous", "Local simultaneous", "COS", "Unadjusted"), each = ncol(res)),
+    levels = c("Simultaneous", "Local simultaneous", "COS", "Unadjusted")
   )
-  
-  df_dens <- data.frame(
-    x = x,
-    dens_left = dens_left,
-    dens_right = dens_right
-  )
-  
-  ggplot() +
-    geom_line(
-      data = df_lines,
-      aes(x = x, y = mu),
-      linewidth = 1,
-      color = "black"
-    ) +
-    geom_line(
-      data = df_lines,
-      aes(x = x, y = mu_dash),
-      linewidth = 1,
-      color = "black",
-      linetype = "dashed"
-    ) +
-    geom_line(
-      data = df_dens,
-      aes(x = x, y = dens_left),
-      linewidth = 1,
-      color = "black"
-    ) +
-    geom_line(
-      data = df_dens,
-      aes(x = x, y = dens_right),
-      linewidth = 1,
-      color = "black"
-    ) +
-    geom_hline(
-      yintercept = 0,
-      linewidth = 0.2,
-      color = "grey70"
-    ) +
-    coord_cartesian(
-      xlim = c(-3, 3.3),
-      ylim = c(-0.05, 2.8),
-      expand = FALSE
-    ) +
-    labs(
-      x = "x",
-      y = expression(mu(x))
-    ) +
-    theme_book
+)
+
+left_min <- 2
+left_max <- 8.3
+right_min <- 0.75
+right_max <- 0.90
+
+to_left <- function(z) {
+  left_min + (z - right_min)/(right_max - right_min)*(left_max - left_min)
 }
 
-p_plot_a <- ancillarity_plot_a()
-p_plot_b <- ancillarity_plot_b()
+to_right <- function(z) {
+  right_min + (z - left_min)/(left_max - left_min)*(right_max - right_min)
+}
 
-p_plot <- p_plot_a / p_plot_b +
-  plot_annotation(
-    tag_levels = "a",
-    tag_prefix = "(",
-    tag_suffix = ")"
+df_coverage <- data.frame(
+  x = res[1, ],
+  y = to_left(res[10, ])
+)
+
+p_plot <- ggplot() +
+  geom_line(
+    data = df_length,
+    aes(x = x, y = y, color = method, linetype = method),
+    linewidth = 0.8
+  ) +
+  geom_line(
+    data = df_coverage,
+    aes(x = x, y = y),
+    linewidth = 0.8,
+    linetype = "11",
+    color = "grey40"
+  ) +
+  scale_color_manual(values = c(
+    "Simultaneous" = "black",
+    "Local simultaneous" = "grey55",
+    "COS" = "grey25",
+    "Unadjusted" = "black"
+  )) +
+  scale_linetype_manual(values = c(
+    "Simultaneous" = "solid",
+    "Local simultaneous" = "solid",
+    "COS" = "solid",
+    "Unadjusted" = "11"
+  )) +
+  scale_x_continuous(breaks = seq(0, 20, by = 4)) +
+  scale_y_continuous(
+    name = "Average interval length",
+    limits = c(left_min, left_max),
+    breaks = seq(2, 8, by = 1.5),
+    sec.axis = sec_axis(
+      trans = ~ to_right(.),
+      name = "Unadj. cov.",
+      breaks = c(0.75, 0.80, 0.85, 0.90)
+    )
+  ) +
+  coord_cartesian(xlim = c(0, 20)) +
+  labs(
+    x = "Std. dev. of theta distribution",
+    title = "",
+    color = NULL,
+    linetype = NULL
+  ) +
+  theme_book +
+  theme(
+    legend.position = c(0.7, 0.7),
+    legend.background = element_blank(),
+    legend.key = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_blank(),
+    axis.title.y.right = element_text(color = "grey40"),
+    axis.text.y.right = element_text(color = "grey40")
   )
 
-ggsave(file.path("Figures", "Outputs", "fig-3-01.pdf"), plot = p_plot, width = 4, height = 6)
+ggsave(file.path("Figures", "Outputs", "fig-3-01.pdf"), plot = p_plot, width = 4, height = 3)
