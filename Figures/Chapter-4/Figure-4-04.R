@@ -78,4 +78,4 @@ p_plot <- p_plot_a / p_plot_b +
     tag_suffix = ")"
   )
 
-ggsave(file.path("Figures", "Outputs", "fig-4-05.pdf"), plot = p_plot, width = 4, height = 6)
+ggsave(file.path("Figures", "Outputs", "fig-4-04.pdf"), plot = p_plot, width = 4, height = 6)
