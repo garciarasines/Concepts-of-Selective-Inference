@@ -183,4 +183,4 @@ p_plot <- ggplot() +
   labs(x = NULL, y = NULL) +
   theme_void()
 
-ggsave(file.path("Figures", "Outputs", "fig-4-03.pdf"), plot = p_plot, width = 4, height = 4)
+ggsave(file.path("Figures", "Outputs", "fig-4-02.pdf"), plot = p_plot, width = 4, height = 4)
