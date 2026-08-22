@@ -33,7 +33,7 @@ p_plot_a <- ggplot(df_a, aes(x = mu, y = coverage)) +
   geom_hline(yintercept = 0.9, linewidth = 1, linetype = "dotted", color = "grey70") +
   geom_vline(xintercept = 0, linewidth = 0.4, color = "grey70") +
   coord_cartesian(ylim = c(0, 1)) +
-  labs(x = expression(mu), y = "Coverage", title = expression(E == "["*0*", "*infinity*")")) +
+  labs(x = expression(mu), y = "Coverage", title = expression("T" == "["*0*", "*infinity*")")) +
   theme_book
 
 
@@ -68,7 +68,7 @@ p_plot_b <- ggplot(df_b, aes(x = mu, y = coverage)) +
   geom_hline(yintercept = 0.9, linewidth = 1, linetype = "dotted", color = "grey70") +
   geom_vline(xintercept = 0, linewidth = 0.4, color = "grey70") +
   coord_cartesian(ylim = c(0, 1)) +
-  labs(x = expression(mu), y = "Coverage", title = expression(E == "["*-2*", "*2*"]")) +
+  labs(x = expression(mu), y = "Coverage", title = expression("T" == "["*-2*", "*2*"]")) +
   theme_book
 
 p_plot <- p_plot_a / p_plot_b +
