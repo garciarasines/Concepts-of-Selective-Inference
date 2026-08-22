@@ -32,14 +32,14 @@ U_us_a <- sapply(ys_a, U_u_a)
 df_a <- data.frame(y = ys_a, L = Ls_a, U = Us_a, L_u = L_us_a, U_u = U_us_a)
 
 p_plot_a <- ggplot(df_a, aes(x = y)) +
-  geom_line(aes(y = L), linewidth = 1, linetype = "33") +
-  geom_line(aes(y = U), linewidth = 1, linetype = "33") +
-  geom_line(aes(y = L_u), linewidth = 1, linetype = "solid") +
-  geom_line(aes(y = U_u), linewidth = 1, linetype = "solid") +
+  geom_line(aes(y = L), linewidth = 1, linetype = "solid") +
+  geom_line(aes(y = U), linewidth = 1, linetype = "solid") +
+  geom_line(aes(y = L_u), linewidth = 1, linetype = "33") +
+  geom_line(aes(y = U_u), linewidth = 1, linetype = "33") +
   geom_vline(xintercept = 0, linewidth = 0.4, color = "grey70") +
   geom_abline(slope = 1, intercept = 0, linewidth = 1, linetype = "dotted", color = "grey70") +
   coord_cartesian(ylim = c(-10, 5)) +
-  labs(x = "y", y = "CIs", title = expression(E == "[" * 0 * ", " * infinity * ")")) +
+  labs(x = "y", y = "CIs", title = expression("T" == "[" * 0 * ", " * infinity * ")")) +
   theme_book +
   theme(plot.title = element_text(color = "black"))
 
@@ -88,19 +88,19 @@ df_b <- data.frame(
 )
 
 p_plot_b <- ggplot(df_b, aes(x = y)) +
-  geom_line(aes(y = L), linewidth = 1, linetype = "33") +
-  geom_line(aes(y = U), linewidth = 1, linetype = "33") +
-  geom_line(aes(y = L_u), linewidth = 1, linetype = "solid") +
-  geom_line(aes(y = U_u), linewidth = 1, linetype = "solid") +
+  geom_line(aes(y = L), linewidth = 1, linetype = "solid") +
+  geom_line(aes(y = U), linewidth = 1, linetype = "solid") +
+  geom_line(aes(y = L_u), linewidth = 1, linetype = "33") +
+  geom_line(aes(y = U_u), linewidth = 1, linetype = "33") +
   geom_vline(xintercept = a, linewidth = 0.4, color = "grey70") +
   geom_vline(xintercept = b, linewidth = 0.4, color = "grey70") +
   geom_abline(slope = 1, intercept = 0, linewidth = 1, linetype = "dotted", color = "grey70") +
   coord_cartesian(ylim = c(-20, 20)) +
-  labs(x = "y", y = "CIs", title = expression(E == "[" * -2 * ", " * 2 * "]")) +
+  labs(x = "y", y = "CIs", title = expression("T" == "[" * -2 * ", " * 2 * "]")) +
   theme_book +
   theme(plot.title = element_text(color = "black"))
 
-p_combined <- p_plot_a / p_plot_b +
+p_plot <- p_plot_a / p_plot_b +
   plot_annotation(
     tag_levels = "a",
     tag_prefix = "(",
@@ -111,4 +111,4 @@ p_combined <- p_plot_a / p_plot_b +
     plot.tag.position = c(0, 1)
   )
 
-ggsave(file.path("Figures", "Outputs", "fig-4-04.pdf"), plot = p_combined, width = 4, height = 6)
+ggsave(file.path("Figures", "Outputs", "fig-4-03.pdf"), plot = p_plot, width = 4, height = 6)
