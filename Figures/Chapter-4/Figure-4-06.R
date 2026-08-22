@@ -100,5 +100,5 @@ p_plot <- ggplot(df_plot, aes(x = x)) +
     panel.grid.major = element_blank()
   )
 
-ggsave(file.path("Figures", "Outputs", "fig-4-07.pdf"), plot = p_plot, width = 4, height = 3)
+ggsave(file.path("Figures", "Outputs", "fig-4-06.pdf"), plot = p_plot, width = 4, height = 3)
 
