@@ -2,10 +2,10 @@ library(fastcluster)
 library(patchwork)
 source(file.path("Figures", "theme.R"))
 
-cluster_wald_pval <- function(X, K = 2, sigma2 = 1) {
-  q <- ncol(X)
+cluster_wald_pval <- function(Y, K = 2, sigma2 = 1) {
+  q <- ncol(Y)
   
-  hc <- fastcluster::hclust(dist(X)^2, method = "average")
+  hc <- fastcluster::hclust(dist(Y)^2, method = "average")
   cl <- cutree(hc, k = K)
   
   pairs <- combn(sort(unique(cl)), 2)
@@ -13,13 +13,13 @@ cluster_wald_pval <- function(X, K = 2, sigma2 = 1) {
   c1 <- pairs[1, pair_id]
   c2 <- pairs[2, pair_id]
   
-  X1 <- X[cl == c1, , drop = FALSE]
-  X2 <- X[cl == c2, , drop = FALSE]
+  Y1 <- Y[cl == c1, , drop = FALSE]
+  Y2 <- Y[cl == c2, , drop = FALSE]
   
-  n1 <- nrow(X1)
-  n2 <- nrow(X2)
+  n1 <- nrow(Y1)
+  n2 <- nrow(Y2)
   
-  d_hat <- colMeans(X1) - colMeans(X2)
+  d_hat <- colMeans(Y1) - colMeans(Y2)
   stat <- sum(d_hat^2) / (sigma2 * (1/n1 + 1/n2))
   
   pchisq(stat, df = q, lower.tail = FALSE)
@@ -31,9 +31,9 @@ simulate_wald_pvals <- function(B = 2000, n = 100, q = 2, sigma = 1, K = 2) {
   pb <- txtProgressBar(min = 0, max = B, style = 3)
   
   for (b in seq_len(B)) {
-    X <- matrix(rnorm(n * q, sd = sigma), nrow = n, ncol = q)
+    Y <- matrix(rnorm(n * q, sd = sigma), nrow = n, ncol = q)
     pvals[b] <- cluster_wald_pval(
-      X,
+      Y,
       K = K,
       sigma2 = sigma^2
     )
@@ -52,7 +52,7 @@ q <- 2
 sig <- 1
 K <- 2
 
-X <- data.frame(
+Y <- data.frame(
   matrix(
     rnorm(n * q, sd = sig),
     nrow = n,
@@ -60,12 +60,12 @@ X <- data.frame(
   )
 )
 
-colnames(X) <- c("Feat1", "Feat2")
+colnames(Y) <- c("Feat1", "Feat2")
 
-X$clusters <- as.factor(
+Y$clusters <- as.factor(
   cutree(
     fastcluster::hclust(
-      dist(X)^2,
+      dist(Y)^2,
       method = "average"
     ),
     k = K
@@ -74,7 +74,7 @@ X$clusters <- as.factor(
 
 centroids <- aggregate(
   cbind(Feat1, Feat2) ~ clusters,
-  X,
+  Y,
   mean
 )
 
@@ -90,7 +90,7 @@ p_plot_a <- ggplot() +
     alpha = 0.7,
     size = 2.4,
     stroke = 0.4,
-    data = X
+    data = Y
   ) +
   scale_shape_manual(
     values = c(21, 22)
@@ -182,3 +182,4 @@ p_plot_b <- ggplot(
 p_plot <- p_plot_a + p_plot_b
 
 ggsave(file.path("Figures", "Outputs", "fig-4-07.pdf"), plot = p_plot, width = 6, height = 4)
+
