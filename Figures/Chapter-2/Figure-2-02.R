@@ -60,8 +60,8 @@ df_plot <- data.frame(
   variable = factor(rep(sel_cov, 2), levels = sel_cov),
   index = rep(seq_len(d), 2),
   method = factor(
-    rep(c("Unadjusted", "PoSI"), each = d),
-    levels = c("Unadjusted", "PoSI")
+    rep(c("Unadjusted", "GPoSI"), each = d),
+    levels = c("Unadjusted", "GPoSI")
   ),
   estimate = rep(as.numeric(psi_hat), 2),
   lower = c(as.numeric(lower_un), as.numeric(lower_posi)),
@@ -87,7 +87,7 @@ p_plot <- ggplot(df_plot, aes(x = x)) +
     color = "grey45"
   ) +
   geom_errorbar(
-    data = subset(df_plot, method == "PoSI"),
+    data = subset(df_plot, method == "GPoSI"),
     aes(ymin = lower, ymax = upper),
     width = 0.12,
     linewidth = 0.9,
@@ -105,7 +105,7 @@ p_plot <- ggplot(df_plot, aes(x = x)) +
   ) +
   scale_shape_manual(values = c(
     "Unadjusted" = 1,
-    "PoSI" = 16
+    "GPoSI" = 16
   )) +
   labs(
     x = NULL,
