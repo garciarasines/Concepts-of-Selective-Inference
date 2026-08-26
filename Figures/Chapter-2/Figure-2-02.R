@@ -94,7 +94,7 @@ p_plot <- ggplot(df_plot, aes(x = x)) +
     color = "black"
   ) +
   geom_point(
-    data = subset(df_plot, method == "PoSI"),
+    data = subset(df_plot, method == "GPoSI"),
     aes(y = estimate, shape = method),
     size = 2.2,
     color = "black"
