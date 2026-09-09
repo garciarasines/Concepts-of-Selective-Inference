@@ -167,4 +167,4 @@ p_plot <- ggplot(power_df, aes(x = effect, y = power, linetype = method, color =
   theme_book +
   theme(legend.position = "top", legend.title = element_blank())
 
-ggsave(file.path("Figures", "Outputs", "fig-5-05.pdf"), plot = p_plot, width = 4, height = 3)
+ggsave(file.path("Figures", "Outputs", "fig-5-04.pdf"), plot = p_plot, width = 4, height = 3)
