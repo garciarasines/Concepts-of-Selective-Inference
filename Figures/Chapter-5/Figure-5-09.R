@@ -161,7 +161,7 @@ p_plot <- ggplot() +
   coord_cartesian(xlim = c(0, 4)) +
   labs(
     x = expression(gamma),
-    title = "UV vs simultaneous vs COS",
+    title = "",
     color = NULL,
     linetype = NULL
   ) +
@@ -176,4 +176,4 @@ p_plot <- ggplot() +
     axis.text.y.right = element_text(color = "grey40")
   )
 
-ggsave(file.path("Figures", "Outputs", "fig-5-09.pdf"), plot = p_plot, width = 4, height = 3)
+ggsave(file.path("Figures", "Outputs", "fig-5-07.pdf"), plot = p_plot, width = 4, height = 3)
