@@ -83,6 +83,7 @@ p_plot <- ggplot() +
     data = subset(df_hist, method == "EB"),
     aes(x = difference),
     binwidth = 0.15,
+    boundary = 0,
     fill = "grey75",
     color = "black",
     linewidth = 0.2
@@ -91,9 +92,10 @@ p_plot <- ggplot() +
     data = subset(df_hist, method == "Uncorrected"),
     aes(x = difference),
     binwidth = 0.15,
+    boundary = 0,
     fill = NA,
     color = "black",
-    linewidth = 0.8
+    linewidth = 0.25
   ) +
   geom_vline(xintercept = 0, linewidth = 0.3) +
   facet_wrap(~ group, nrow = 1, scales = "free") +
